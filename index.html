@@ -1,13 +1,149 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>RentaEstudia - Tu espacio ideal en Morelia</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background-color: #F5F5F5;
+      color: #2D3142;
+    }
+    header {
+      background-color: #EF8354;
+      color: white;
+      padding: 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    header img {
+      height: 50px;
+    }
+    h1 {
+      font-size: 2rem;
+      margin: 0;
+    }
+    .search-container, .login-container, .properties-container {
+      margin: 2rem;
+      background: white;
+      padding: 2rem;
+      border-radius: 1rem;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    input, select, button {
+      padding: 1rem;
+      font-size: 1rem;
+      margin: 0.5rem 0;
+      width: 100%;
+      border: 1px solid #ccc;
+      border-radius: 0.5rem;
+    }
+    button {
+      background-color: #3BCEAC;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    .properties-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1rem;
+    }
+    .property-card {
+      border: 1px solid #ccc;
+      border-radius: 0.5rem;
+      overflow: hidden;
+      background: #fff;
+    }
+    .property-card img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+    }
+    .property-card div {
+      padding: 1rem;
+    }
+    footer {
+      margin-top: 3rem;
+      text-align: center;
+      padding: 2rem;
+      background-color: #2D3142;
+      color: white;
+    }
+  </style>
 </head>
 <body>
-  <h1>¡Bienvenida a RentaEstudia!</h1>
-  <p>Explora las mejores opciones de renta cerca de tu universidad.</p>
-  <a href="/admin-fatima.html">Panel privado (Fátima)</a>
+  <header>
+    <img src="logo_rentaestudia.png" alt="RentaEstudia Logo">
+    <h1>RentaEstudia</h1>
+  </header>
+  <main>
+    <div class="search-container">
+      <h2>Encuentra tu espacio ideal cerca de tu uni</h2>
+      <select>
+        <option selected disabled>Zona estudiantil</option>
+        <option>CU</option>
+        <option>UNLA</option>
+        <option>UVAQ</option>
+        <option>Jefferson</option>
+        <option>Camelinas</option>
+        <option>Altozano</option>
+      </select>
+      <select>
+        <option selected disabled>Tipo de lugar</option>
+        <option>Cuarto individual</option>
+        <option>Departamento</option>
+        <option>Casa compartida</option>
+      </select>
+      <input type="number" placeholder="Presupuesto máximo ($MXN)">
+      <button>Buscar opciones</button>
+    </div>
+
+    <div class="login-container">
+      <h2>Iniciar sesión</h2>
+      <input type="email" placeholder="Correo electrónico">
+      <input type="password" placeholder="Contraseña">
+      <button>Entrar</button>
+      <p>¿No tienes cuenta? <a href="#">Regístrate</a></p>
+    </div>
+
+    <div class="properties-container">
+      <h2>Propiedades destacadas</h2>
+      <div class="properties-grid">
+        <div class="property-card">
+          <img src="https://source.unsplash.com/250x150/?room" alt="Cuarto cerca de CU">
+          <div>
+            <h3>Cuarto cerca de CU</h3>
+            <p>$2,500 MXN/mes · CU</p>
+            <button>Ver más</button>
+          </div>
+        </div>
+        <div class="property-card">
+          <img src="https://source.unsplash.com/250x150/?apartment" alt="Depa compartido en Altozano">
+          <div>
+            <h3>Depa compartido en Altozano</h3>
+            <p>$3,800 MXN/mes · Altozano</p>
+            <button>Ver más</button>
+          </div>
+        </div>
+        <div class="property-card">
+          <img src="https://source.unsplash.com/250x150/?student-house" alt="Casa para estudiantes en Camelinas">
+          <div>
+            <h3>Casa para estudiantes en Camelinas</h3>
+            <p>$5,000 MXN/mes · Camelinas</p>
+            <button>Ver más</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <footer>
+    &copy; 2025 RentaEstudia. Plataforma hecha en Morelia con amor.
+  </footer>
 </body>
 </html>

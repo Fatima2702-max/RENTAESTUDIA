@@ -1,0 +1,149 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>RentaEstudia</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f2f2f2;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background: #ef8354;
+      color: white;
+      padding: 1rem 2rem;
+      font-size: 1.5rem;
+    }
+    main {
+      padding: 2rem;
+      max-width: 800px;
+      margin: auto;
+      background: white;
+      border-radius: 1rem;
+    }
+    select, input, button {
+      width: 100%;
+      padding: 1rem;
+      margin: 1rem 0;
+      border-radius: 0.5rem;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+    }
+    button {
+      background: #3bceac;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    .property {
+      border: 1px solid #ccc;
+      margin: 1rem 0;
+      border-radius: 1rem;
+      padding: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <header>RentaEstudia</header>
+  <main>
+    <h2>Encuentra tu espacio ideal</h2>
+    <form id="filterForm">
+      <select id="zonaPrincipal" onchange="cargarSubzonas()">
+        <option disabled selected>Selecciona categoría de zona</option>
+        <option>Zona Estudiantil</option>
+        <option>Zona Corporativa</option>
+        <option>Zona Familiar</option>
+      </select>
+      <select id="subzona">
+        <option disabled selected>Primero elige una categoría</option>
+      </select>
+      <select id="tipo">
+        <option disabled selected>Tipo de lugar</option>
+        <option>Departamento</option>
+        <option>Cuarto individual</option>
+        <option>Casa compartida</option>
+      </select>
+      <input type="number" id="presupuesto" placeholder="Presupuesto máximo ($MXN)" />
+      <button type="submit">Buscar opciones</button>
+    </form>
+    <div id="resultados"></div>
+  </main>
+
+  <script>
+    const zonas = {
+      "Zona Estudiantil": ["CU", "UNLA", "UVAQ", "Jefferson", "Medicina", "Tec de Morelia", "Camelinas", "Altozano"],
+      "Zona Corporativa": ["Chapultepec", "Torre Financiera", "Camelinas", "Las Américas"],
+      "Zona Familiar": ["Ventura Puente", "La Huerta", "Las Américas", "Chapultepec Norte"]
+    };
+
+    const propiedades = [
+      {
+        titulo: "Cuarto cerca de CU",
+        zona: "CU",
+        tipo: "Cuarto individual",
+        precio: 4500,
+        imagen: "https://source.unsplash.com/250x150/?room",
+        contacto: "https://wa.me/523521364109"
+      },
+      {
+        titulo: "Loft ejecutivo en Torre Financiera",
+        zona: "Torre Financiera",
+        tipo: "Departamento",
+        precio: 8500,
+        imagen: "https://source.unsplash.com/250x150/?loft",
+        contacto: "https://wa.me/523521364109"
+      },
+      {
+        titulo: "Casa familiar en La Huerta",
+        zona: "La Huerta",
+        tipo: "Casa compartida",
+        precio: 7000,
+        imagen: "https://source.unsplash.com/250x150/?home",
+        contacto: "https://wa.me/523521364109"
+      }
+    ];
+
+    function cargarSubzonas() {
+      const zonaPrincipal = document.getElementById("zonaPrincipal").value;
+      const subzona = document.getElementById("subzona");
+      subzona.innerHTML = "<option disabled selected>Selecciona una zona específica</option>";
+      if (zonas[zonaPrincipal]) {
+        zonas[zonaPrincipal].forEach(z => {
+          const option = document.createElement("option");
+          option.text = z;
+          subzona.add(option);
+        });
+      }
+    }
+
+    document.getElementById("filterForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const zona = document.getElementById("subzona").value;
+      const tipo = document.getElementById("tipo").value;
+      const presupuesto = parseInt(document.getElementById("presupuesto").value);
+
+      const filtradas = propiedades.filter(p =>
+        (!zona || p.zona === zona) &&
+        (tipo === "Tipo de lugar" || p.tipo === tipo) &&
+        (!presupuesto || p.precio <= presupuesto)
+      );
+
+      const resultados = document.getElementById("resultados");
+      resultados.innerHTML = filtradas.map(p => `
+        <div class="property">
+          <h3>${p.titulo}</h3>
+          <img src="${p.imagen}" alt="${p.titulo}" />
+          <p><strong>Zona:</strong> ${p.zona}</p>
+          <p><strong>Tipo:</strong> ${p.tipo}</p>
+          <p><strong>Precio:</strong> $${p.precio} MXN</p>
+          <a href="${p.contacto}" target="_blank">Contactar por WhatsApp</a>
+        </div>
+      `).join("") || "<p>No se encontraron propiedades con los filtros seleccionados.</p>";
+    });
+  </script>
+</body>
+</html>

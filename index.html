@@ -1,0 +1,78 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RentaEstudia</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f2f2f2; margin: 0; padding: 0; }
+    header { background: #ef8354; color: white; padding: 1rem 2rem; font-size: 1.5rem; }
+    main { padding: 2rem; max-width: 800px; margin: auto; background: white; border-radius: 1rem; }
+    select, input, button {
+      width: 100%; padding: 1rem; margin: 1rem 0; border-radius: 0.5rem;
+      border: 1px solid #ccc; font-size: 1rem;
+    }
+    button { background: #3bceac; color: white; border: none; cursor: pointer; }
+    .property { border: 1px solid #ccc; margin: 1rem 0; border-radius: 1rem; padding: 1rem; }
+  </style>
+</head>
+<body>
+  <header>RentaEstudia</header>
+  <main>
+    <h2>Encuentra tu espacio ideal</h2>
+    <select id="categoria" onchange="updateZonaOptions()">
+      <option disabled selected>Selecciona una categoría</option>
+      <option value="Estudiantil">Zona Estudiantil</option>
+      <option value="Corporativa">Zona Corporativa</option>
+      <option value="Familiar">Zona Familiar</option>
+    </select>
+
+    <select id="zona" style="display:none;"></select>
+    <input type="number" id="presupuesto" placeholder="Presupuesto máximo ($MXN)" />
+    <button onclick="buscar()">Buscar opciones</button>
+
+    <div id="resultados"></div>
+  </main>
+  <script>
+    const zonas = {
+      Estudiantil: ["CU", "UNLA", "UVAQ", "Jefferson", "Camelinas", "Altozano"],
+      Corporativa: ["Centro", "Chapultepec", "Las Américas"],
+      Familiar: ["Bosque Camelinas", "La Loma", "Vista Bella"]
+    };
+
+    const propiedades = [
+      { titulo: "Depa CU", zona: "CU", categoria: "Estudiantil", precio: 4500 },
+      { titulo: "Casa Camelinas", zona: "Camelinas", categoria: "Estudiantil", precio: 5000 },
+      { titulo: "Oficina Chapultepec", zona: "Chapultepec", categoria: "Corporativa", precio: 8500 },
+      { titulo: "Casa Vista Bella", zona: "Vista Bella", categoria: "Familiar", precio: 6000 },
+    ];
+
+    function updateZonaOptions() {
+      const categoria = document.getElementById("categoria").value;
+      const zonaSelect = document.getElementById("zona");
+      zonaSelect.innerHTML = "";
+      if (zonas[categoria]) {
+        zonaSelect.style.display = "block";
+        zonas[categoria].forEach(z => {
+          const opt = document.createElement("option");
+          opt.value = z;
+          opt.textContent = z;
+          zonaSelect.appendChild(opt);
+        });
+      } else {
+        zonaSelect.style.display = "none";
+      }
+    }
+
+    function buscar() {
+      const cat = document.getElementById("categoria").value;
+      const zona = document.getElementById("zona").value;
+      const max = parseInt(document.getElementById("presupuesto").value || "999999");
+      const res = propiedades.filter(p => p.categoria === cat && p.zona === zona && p.precio <= max);
+      const cont = document.getElementById("resultados");
+      cont.innerHTML = res.length ? res.map(p => `<div class="property"><h3>${p.titulo}</h3><p>Zona: ${p.zona}</p><p>Precio: $${p.precio}</p></div>`).join("") : "<p>No hay resultados.</p>";
+    }
+  </script>
+</body>
+</html>

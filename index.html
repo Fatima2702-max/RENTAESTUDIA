@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -91,7 +92,7 @@
   <main>
     <div class="search-container">
       <h2>Encuentra tu espacio ideal cerca de tu uni</h2>
-      <select>
+      <select id="zona-select">
         <option selected disabled>Zona estudiantil</option>
         <option>CU</option>
         <option>UNLA</option>
@@ -100,27 +101,11 @@
         <option>Camelinas</option>
         <option>Altozano</option>
       </select>
-      <select>
-        <option selected disabled>Tipo de lugar</option>
-        <option>Cuarto individual</option>
-        <option>Departamento</option>
-        <option>Casa compartida</option>
-      </select>
-      <input type="number" placeholder="Presupuesto máximo ($MXN)">
-      <button>Buscar opciones</button>
-    </div>
-
-    <div class="login-container">
-      <h2>Iniciar sesión</h2>
-      <input type="email" placeholder="Correo electrónico">
-      <input type="password" placeholder="Contraseña">
-      <button>Entrar</button>
-      <p>¿No tienes cuenta? <a href="#">Regístrate</a></p>
     </div>
 
     <div class="properties-container">
       <h2>Propiedades destacadas</h2>
-      <div class="properties-grid" id="properties"></div>
+      <div class="properties-grid" id="contenedor-propiedades"></div>
     </div>
   </main>
   <footer>
@@ -128,24 +113,58 @@
   </footer>
 
   <script>
-    fetch('https://opensheet.elk.sh/1JNbC0vRFDYqCY1TjWtF4hiHbG4AY4-ucW0T1yhPDZEw/Hoja%201')
-      .then(res => res.json())
-      .then(data => {
-        const container = document.getElementById('properties');
-        container.innerHTML = data.map(p => `
+    const propiedades = [
+      {
+        titulo: "Cuarto cerca de CU",
+        zona: "CU",
+        precio: "$2,500 MXN/mes",
+        imagen: "https://source.unsplash.com/250x150/?room",
+        link: "https://wa.me/523521364109?text=Estoy%20interesado%20en%20la%20propiedad%20de%20CU"
+      },
+      {
+        titulo: "Depa compartido en Altozano",
+        zona: "Altozano",
+        precio: "$3,800 MXN/mes",
+        imagen: "https://source.unsplash.com/250x150/?apartment",
+        link: "https://wa.me/523521364109?text=Estoy%20interesado%20en%20la%20propiedad%20de%20Altozano"
+      },
+      {
+        titulo: "Casa para estudiantes en Camelinas",
+        zona: "Camelinas",
+        precio: "$5,000 MXN/mes",
+        imagen: "https://source.unsplash.com/250x150/?student-house",
+        link: "https://wa.me/523521364109?text=Estoy%20interesado%20en%20la%20propiedad%20de%20Camelinas"
+      }
+    ];
+
+    const zonaSelect = document.getElementById("zona-select");
+    const contenedor = document.getElementById("contenedor-propiedades");
+
+    function renderPropiedades(lista) {
+      contenedor.innerHTML = "";
+      lista.forEach(p => {
+        contenedor.innerHTML += `
           <div class="property-card">
-            <img src="${p['Imagen']}" alt="${p['Título']}">
+            <img src="${p.imagen}" alt="${p.titulo}">
             <div>
-              <h3>${p['Título']}</h3>
-              <p>${p['Descripción']}</p>
-              <p>$${p['Precio (MXN/mes)']} MXN/mes · ${p['Zona']}</p>
-              <a href="${p['WhatsApp Contacto']}" target="_blank">
-                <button>Contactar</button>
-              </a>
+              <h3>${p.titulo}</h3>
+              <p>${p.precio} · ${p.zona}</p>
+              <button onclick="window.open('${p.link}', '_blank')">Ver más</button>
             </div>
           </div>
-        `).join('');
+        `;
       });
+    }
+
+    // Mostrar todas por defecto
+    renderPropiedades(propiedades);
+
+    // Filtrar por zona
+    zonaSelect.addEventListener("change", () => {
+      const zonaElegida = zonaSelect.value;
+      const filtradas = propiedades.filter(p => p.zona === zonaElegida);
+      renderPropiedades(filtradas);
+    });
   </script>
 </body>
 </html>

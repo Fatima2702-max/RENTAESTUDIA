@@ -1,0 +1,170 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RentaEstudia - Tu espacio ideal en Morelia</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background-color: #F5F5F5;
+      color: #2D3142;
+    }
+    header {
+      background-color: #EF8354;
+      color: white;
+      padding: 1.5rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .logo-container img {
+      height: 50px;
+    }
+    h1 {
+      font-size: 2rem;
+      margin: 0;
+    }
+    .search-container, .login-container, .properties-container {
+      margin: 2rem;
+      background: white;
+      padding: 2rem;
+      border-radius: 1rem;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    input, select, button {
+      padding: 1rem;
+      font-size: 1rem;
+      margin: 0.5rem 0;
+      width: 100%;
+      border: 1px solid #ccc;
+      border-radius: 0.5rem;
+    }
+    button {
+      background-color: #3BCEAC;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    .properties-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1rem;
+    }
+    .property-card {
+      border: 1px solid #ccc;
+      border-radius: 0.5rem;
+      overflow: hidden;
+      background: #fff;
+    }
+    .property-card img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+    }
+    .property-card div {
+      padding: 1rem;
+    }
+    footer {
+      margin-top: 3rem;
+      text-align: center;
+      padding: 2rem;
+      background-color: #2D3142;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo-container">
+      <img src="logo_rentaestudia.png" alt="RentaEstudia Logo">
+      <h1>RentaEstudia</h1>
+    </div>
+  </header>
+  <main>
+    <div class="search-container">
+      <h2>Encuentra tu espacio ideal cerca de tu uni</h2>
+      <select id="zona-select">
+        <option selected disabled>Zona estudiantil</option>
+        <option>CU</option>
+        <option>UNLA</option>
+        <option>UVAQ</option>
+        <option>Jefferson</option>
+        <option>Camelinas</option>
+        <option>Altozano</option>
+      </select>
+    </div>
+
+    <div class="properties-container">
+      <h2>Propiedades destacadas</h2>
+      <div class="properties-grid" id="contenedor-propiedades"></div>
+    </div>
+  </main>
+  <footer>
+    &copy; 2025 RentaEstudia. Plataforma hecha en Morelia con amor.
+  </footer>
+
+  <script>
+    const propiedades = [
+      {
+        titulo: "Cuarto cerca de CU",
+        zona: "CU",
+        precio: "$2,500 MXN/mes",
+        imagen: "https://source.unsplash.com/250x150/?room",
+        link: "https://wa.me/523521364109?text=Estoy%20interesado%20en%20la%20propiedad%20de%20CU"
+      },
+      {
+        titulo: "Depa compartido en Altozano",
+        zona: "Altozano",
+        precio: "$3,800 MXN/mes",
+        imagen: "https://source.unsplash.com/250x150/?apartment",
+        link: "https://wa.me/523521364109?text=Estoy%20interesado%20en%20la%20propiedad%20de%20Altozano"
+      },
+      {
+        titulo: "Casa para estudiantes en Camelinas",
+        zona: "Camelinas",
+        precio: "$5,000 MXN/mes",
+        imagen: "https://source.unsplash.com/250x150/?student-house",
+        link: "https://wa.me/523521364109?text=Estoy%20interesado%20en%20la%20propiedad%20de%20Camelinas"
+      }
+    ];
+
+    const zonaSelect = document.getElementById("zona-select");
+    const contenedor = document.getElementById("contenedor-propiedades");
+
+    function renderPropiedades(lista) {
+      contenedor.innerHTML = "";
+      lista.forEach(p => {
+        contenedor.innerHTML += `
+          <div class="property-card">
+            <img src="${p.imagen}" alt="${p.titulo}">
+            <div>
+              <h3>${p.titulo}</h3>
+              <p>${p.precio} · ${p.zona}</p>
+              <button onclick="window.open('${p.link}', '_blank')">Ver más</button>
+            </div>
+          </div>
+        `;
+      });
+    }
+
+    // Mostrar todas por defecto
+    renderPropiedades(propiedades);
+
+    // Filtrar por zona
+    zonaSelect.addEventListener("change", () => {
+      const zonaElegida = zonaSelect.value;
+      const filtradas = propiedades.filter(p => p.zona === zonaElegida);
+      renderPropiedades(filtradas);
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,130 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RentaEstudia</title>
+  <style>
+:root {
+  --terracota: #E76F51;
+  --teal: #2A9D8F;
+  --navy: #264653;
+}
+body {
+  font-family: sans-serif;
+  background-color: #f9fafb;
+  color: #333;
+  margin: 0;
+  padding: 0;
+}
+header {
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+}
+header h1 {
+  font-size: 1.5rem;
+  color: var(--navy);
+  margin-left: 1rem;
+}
+select, input {
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  width: 100%;
+}
+.container {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 1rem;
+}
+.card {
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  overflow: hidden;
+}
+.card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+.card-body {
+  padding: 1rem;
+}
+.card-body h3 {
+  margin-top: 0;
+  color: var(--navy);
+}
+.card-body ul {
+  padding-left: 1.2rem;
+}
+.btn {
+  display: block;
+  width: 100%;
+  padding: 0.75rem;
+  background-color: var(--teal);
+  color: white;
+  text-align: center;
+  border: none;
+  border-radius: 6px;
+  margin-top: 1rem;
+  text-decoration: none;
+}
+.btn:hover {
+  background-color: #21867A;
+}
+.filter-box {
+  background-color: white;
+  padding: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  margin-bottom: 2rem;
+}
+</style>
+</head>
+<body>
+  <header>
+    <img src="logo.png" alt="Logo RentaEstudia" style="height: 50px;">
+    <h1>RentaEstudia</h1>
+  </header>
+  <div class="container">
+    <div class="filter-box">
+      <h2 style="color: var(--navy);">Filtra tu búsqueda</h2>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+        <select>
+          <option>Zona Estudiantil</option>
+          <option>Zona Corporativa</option>
+          <option>Zona Familiar</option>
+        </select>
+        <input type="number" placeholder="Presupuesto máximo">
+        <select>
+          <option>Departamento</option>
+          <option>Cuarto</option>
+          <option>Casa</option>
+        </select>
+      </div>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
+      <div class="card">
+        <img src="https://via.placeholder.com/400x250" alt="Propiedad CU">
+        <div class="card-body">
+          <h3>Cuarto amueblado cerca de CU</h3>
+          <p style="color: green; font-weight: bold;">$2,500 MXN</p>
+          <p>Zona: CU</p>
+          <ul>
+            <li>Internet</li>
+            <li>Agua</li>
+            <li>Luz</li>
+            <li>Acceso independiente</li>
+          </ul>
+          <a href="https://wa.me/5213521364109" target="_blank" class="btn">Contactar por WhatsApp</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
